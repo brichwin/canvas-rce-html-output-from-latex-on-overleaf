@@ -1,0 +1,53 @@
+Make:htlatex()
+Make:bibtex()
+Make:htlatex()
+Make:htlatex()
+
+local domfilter = require "make4ht-domfilter"
+
+local function trim_trailing_nbsp_pars(dom)
+  local function is_nbsp_only_p(el)
+    if el:get_element_name() ~= "p" then return false end
+
+    -- Treat NBSP as whitespace: UTF-8 NBSP is \194\160
+    local text = el:get_text():gsub("\194\160", " ")
+    if not text:match("^%s*$") then return false end
+
+    -- If it contains any element children, don't remove it
+    for _, child in ipairs(el:get_children()) do
+      if child:is_element() then return false end
+    end
+    return true
+  end
+
+  local function is_last_child(el)
+    local parent = el:get_parent()
+    if not parent then return false end
+    local kids = parent:get_children()
+    for i = #kids, 1, -1 do
+      if kids[i]:is_element() then
+        return kids[i] == el
+      end
+    end
+    return false
+  end
+
+  dom:traverse_elements(function(el)
+    if not is_nbsp_only_p(el) then return end
+
+    local parent = el:get_parent()
+    if not parent then return end
+
+    -- Scope it narrowly: only remove the *last* <p>&nbsp;</p> inside TeX4ht's theorem wrapper
+    if parent:get_element_name() == "div" and (parent:get_attribute("class") or ""):match("newtheorem") then
+      if is_last_child(el) then
+        el:remove_node()
+      end
+    end
+  end)
+
+  return dom
+end
+
+local process = domfilter { trim_trailing_nbsp_pars }
+Make:match("html$", process)

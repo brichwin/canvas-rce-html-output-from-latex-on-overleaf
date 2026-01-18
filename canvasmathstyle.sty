@@ -1,0 +1,72 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{canvasmathstyle}[2026/01/16 Reusable theorem environments and styling]
+
+% Core packages
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+\RequirePackage{amsthm}
+\RequirePackage{xcolor}
+
+% --- GRAPHICS SETUP ---
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{arrows.meta}
+
+% --------------------------------------------------------------------
+% Numbering convention:
+% - number within sections: Theorem 2.3, Definition 2.4, Remark 2.5, ...
+% - share a single counter across theorem-like environments
+% --------------------------------------------------------------------
+\newtheorem{theorem}{Theorem}[section]
+
+% --- 1. PLAIN STYLE ---
+% Bold Title, Italic Body. Best for major mathematical statements.
+\theoremstyle{plain}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{criterion}[theorem]{Criterion}
+\newtheorem{fact}[theorem]{Fact}
+\newtheorem{paradox}[theorem]{Paradox}
+\newtheorem{claim}[theorem]{Claim}
+
+% --- 2. DEFINITION STYLE ---
+% Bold Title, Upright Body. Best for structural elements and examples.
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{axiom}[theorem]{Axiom}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{condition}[theorem]{Condition}
+\newtheorem{formula}[theorem]{Formula}
+\newtheorem{idea}[theorem]{Idea}
+
+% --- 3. REMARK STYLE ---
+% Italic Title, Upright Body. Best for commentary.
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{explanation}[theorem]{Explanation}
+\newtheorem{observation}[theorem]{Observation}
+\newtheorem{conclusion}[theorem]{Conclusion}
+\newtheorem{summary}[theorem]{Summary}
+\newtheorem{aside}[theorem]{Aside}
+
+% --- CUSTOM WARNING STYLE ---
+% Custom style so Warning stands out (red, bold heading)
+\newtheoremstyle{warningstyle}
+  {}% space above
+  {}% space below
+  {\normalfont}% body font
+  {}% indent
+  {\bfseries\color{red}}% head font
+  {:}% punctuation after head
+  { }% space after head
+  {}% head spec
+
+\theoremstyle{warningstyle}
+\newtheorem{warning}[theorem]{Warning}
+
+\endinput
