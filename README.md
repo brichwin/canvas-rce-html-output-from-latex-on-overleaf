@@ -78,8 +78,9 @@ After downloading:
 
 ## Tips for using the HTML in Canvas
 
-- Keep the HTML and its image files together; the HTML uses relative image paths.
-- Canvas will strip some HTML/CSS code in the file depending on your institution’s settings. You will need to inline the CSS into the element `style` attributes.
+- Keep the HTML and the css and image files together; the HTML uses relative image paths to the same folder as the .html file.
+- Canvas will strip some HTML/CSS code in the file depending on your institution’s settings. You will need to inline the CSS into the element `style` attributes if using the HTML in the Canvas RCE. See the [Canvas HTML Uploader (designed for uploading make4ht content)](https://github.com/brichwin/canvas-rce-html-uploader) repo for a tool
+that automates this.
 
 ## Troubleshooting
 
